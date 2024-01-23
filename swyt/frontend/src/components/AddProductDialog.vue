@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, computed, defineEmits, ref, watch } from 'vue';
 import axios from 'axios'
-import { Product } from './interfaces';
+import { Product } from './type.d';
 
 const emit = defineEmits(['close', 'submit'])
 
@@ -39,7 +39,8 @@ async function uploadFile() {
 
   try{
     const api = await axios.post(`http://localhost:3000/multer/upload`, formData)
-    form.value.image = api.data.file_url
+    form.value.image = `http://localhost:3000${api.data.file_url}`
+    form.value.price = parseInt(form.value.price as string)
     fileError.value = false
     validate.value ? emit('submit', form) : undefined
   } catch (e) {

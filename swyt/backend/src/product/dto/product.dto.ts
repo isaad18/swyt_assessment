@@ -25,7 +25,6 @@ export class ProductDto {
   description: string;
 
   @IsString()
-  @IsUrl()
   @MaxLength(250)
   @IsNotEmpty()
   image: string;
