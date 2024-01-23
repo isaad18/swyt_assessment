@@ -21,29 +21,32 @@ export class ProductService {
   async getProducts(
     take: number,
     skip: number,
-    orderBy: 'asc' | 'desc' = 'asc',
+    search: string = '',
     category?: Category,
   ) {
-    if (category) {
-      return await this.prisma.product.findMany({
-        take: take,
-        skip: skip,
-        orderBy: {
-          createdAt: orderBy,
-        },
-        where: {
-          category: category,
-        },
-      });
+    const where = {
+      name: {
+        contains: search,
+      },
+    };
+
+    if (search !== '') {
+      where.name.contains = search;
     }
 
-    return await this.prisma.product.findMany({
+    if (category) {
+      where.category = category;
+    }
+
+    const res = await this.prisma.product.findMany({
       take: take,
       skip: skip,
-      orderBy: {
-        createdAt: orderBy,
-      },
+      where: where,
     });
+
+    console.log(res);
+
+    return res;
   }
 
   async postProduct(product: ProductDto) {

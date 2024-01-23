@@ -58,6 +58,23 @@ const items = [
     'OTHER'
 ]
 
+const validateNumericInput = (event: KeyboardEvent) => {
+   const keyCode = event.keyCode
+
+   if (
+      (keyCode >= 47 && keyCode <= 57) ||
+      keyCode === 46 ||
+      keyCode === 8 ||
+      keyCode === 37 ||
+      keyCode === 39 ||
+      keyCode === 190
+   ) {
+      return true
+   } else {
+      event.preventDefault()
+   }
+}
+
 async function submit() {
     uploadFile()
 }
@@ -108,6 +125,7 @@ async function submit() {
                         <VTextField
                             v-model="form.price"
                             label="Price"
+                            @keydown="validateNumericInput"
                             variant="filled"
                         />
                     </VResponsive>

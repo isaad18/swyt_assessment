@@ -9,7 +9,7 @@ interface Emit {
 
 interface SearchObject {
     search?: string
-    filter?: string[]
+    filter?: string
 }
 
 const emit = defineEmits<Emit>();
@@ -17,11 +17,11 @@ const emit = defineEmits<Emit>();
 const searchObject: SearchObject = ref({});
 
 function search() {
-    if(searchObject.value.filter?.length !== 0 && searchObject.value.search !== '') emit('search', searchObject)
+    if(searchObject.value.filter !== '' && searchObject.value.search !== '') emit('search', searchObject.value)
 }
 
 function clear() {
-    searchObject.value.filter = []
+    searchObject.value.filter = ''
     searchObject.value.search = ''
     emit('clear')
 }
@@ -29,6 +29,15 @@ function clear() {
 function newProduct() {
     emit('new')
 }
+
+const items = [
+    'FOOD',
+    'ELECTRONICS',
+    'MOTORS',
+    'FURNITURE',
+    'DRINK',
+    'OTHER'
+]
 </script>
 
 <template>
@@ -56,8 +65,8 @@ function newProduct() {
             <VAutocomplete
                 v-model="searchObject.filter"
                 label="filter"
-                multiple
                 class="text-white"
+                :items="items"
                 variant="filled"
                 chips
             >

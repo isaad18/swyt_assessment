@@ -20,7 +20,7 @@ export class ProductController {
   async getAllProducts(
     @Query('take', PosNumberPipe) take: number,
     @Query('skip', PosNumberPipe) skip: number,
-    @Query('orderBy', ParseStringPipe) orderBy: 'asc' | 'desc',
+    @Query('search', ParseStringPipe) search: string,
     @Query('category', ParseStringPipe) category?: Category,
   ) {
     if (!take || take === 0) {
@@ -29,13 +29,10 @@ export class ProductController {
     if (!skip) {
       skip = 0;
     }
-    if (!orderBy || (orderBy !== 'asc' && orderBy !== 'desc')) {
-      orderBy = 'asc';
-    }
     if (category && !this.productService.isProductEnum(category)) {
       return [];
     }
-    return await this.productService.getProducts(take, skip, orderBy, category);
+    return await this.productService.getProducts(take, skip, search, category);
   }
 
   @Post()
