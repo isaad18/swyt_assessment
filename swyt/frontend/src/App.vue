@@ -1,10 +1,9 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios'
 import SearchBar from '@/components/SearchBar'
 import PictureCardView from '@/components/PictureCardView'
-
-
+import ProductDialog from '@/components/ProductDialog'
 
 onMounted(async () => {
   const response = await axios.get('http://10.63.175.120:3000/url')
@@ -14,8 +13,11 @@ function test() {
   console.log('testtttt')
 }
 
+const dialog = ref(false)
+
 function test2(maybe) {
   console.log(maybe)
+  dialog.value = true
 }
 const products = [
   {
@@ -79,6 +81,7 @@ const products = [
 </script>
 
 <template>
+  <ProductDialog :dialog="dialog" :product="products[0]" @close="() => {dialog = false}" />
   <VCol class="d-flex flex-column align-center w-100" cols="12">
     <h1 class="text-white pa-4">Random Products Incoming</h1>
     <SearchBar

@@ -29,7 +29,7 @@ const zoomTransition = ref('transform 0.3s ease-in-out')
             aspect-ratio="1"
             :src="product.image"
         />
-        <VCardTitle class="text-h6">{{ product.name }}</VCardTitle>
+        <VCardTitle class="text-h6">{{ product.name }} ${{ product.price }}</VCardTitle>
      </VCard>
     </VCol>
    </VRow>
