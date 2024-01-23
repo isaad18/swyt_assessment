@@ -18,16 +18,12 @@ export class ProductService {
     );
   }
 
-  async getProducts(
-    take: number,
-    skip: number,
-    search: string = '',
-    category?: Category,
-  ) {
+  async getProducts(search: string = '', category?: Category) {
     const where = {
       name: {
         contains: search,
       },
+      category: undefined,
     };
 
     if (search !== '') {
@@ -39,12 +35,8 @@ export class ProductService {
     }
 
     const res = await this.prisma.product.findMany({
-      take: take,
-      skip: skip,
       where: where,
     });
-
-    console.log(res);
 
     return res;
   }

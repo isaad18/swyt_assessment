@@ -18,21 +18,13 @@ export class ProductController {
 
   @Get()
   async getAllProducts(
-    @Query('take', PosNumberPipe) take: number,
-    @Query('skip', PosNumberPipe) skip: number,
     @Query('search', ParseStringPipe) search: string,
     @Query('category', ParseStringPipe) category?: Category,
   ) {
-    if (!take || take === 0) {
-      return [];
-    }
-    if (!skip) {
-      skip = 0;
-    }
     if (category && !this.productService.isProductEnum(category)) {
       return [];
     }
-    return await this.productService.getProducts(take, skip, search, category);
+    return await this.productService.getProducts(search, category);
   }
 
   @Post()
