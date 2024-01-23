@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+    web:
+        container_name: swyt_web
+
+        build: ./swyt/frontend
+
+        volumes:
+            - ./swyt/frontend:/usr/src/app
+
+        command: ['sh', '-c', 'yarn install && yarn serve']
+
+        ports:
+            - 8080:8080
+
+        environment:
+            - IP=${IP}
+
+        depends_on:
+            - api
+
+        restart: on-failure
+
+    api:
+        container_name: swyt_api
+
+        build: ./swyt/backend
+
+        volumes:
+            - ./swyt/backend:/usr/src/app
+
+        command:
+            [
+                'sh',
+                '-c',
+                'yarn install && npx prisma db push --force-reset && npx prisma studio | yarn start:dev',
+            ]
+        environment:
+            - DATABASE_URL=${DATABASE_URL}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - PORT=${PGPORT}
+
+        networks:
+            - backend_db_net
+
+        ports:
+            - 5555:5555
+            - 3000:3000
+
+        depends_on:
+            - postgres
+
+        restart: on-failure
+
+    postgres:
+
+        image: postgres:13.4-buster
+
+        container_name: postgres
+
+        environment:
+
+            PGPORT: ${PGPORT}
+
+            POSTGRES_USER: ${POSTGRES_USER}
+
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+            DB_DATABASE: ${DB_DATABASE}
+
+        ports:
+            - "5432:5432"
+
+        networks:
+            - backend_db_net
+
+        volumes:
+            - ./init.sh:/docker-entrypoint-initdb.d/init-db.sh
+
+networks:
+    backend_db_net:
