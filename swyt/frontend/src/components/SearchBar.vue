@@ -4,6 +4,7 @@ import { defineEmits, ref } from 'vue'
 interface Emit {
     (e: 'search', value: any): void
     (e: 'clear'): void
+    (e: 'new'): void
 }
 
 interface SearchObject {
@@ -23,6 +24,10 @@ function clear() {
     searchObject.value.filter = []
     searchObject.value.search = ''
     emit('clear')
+}
+
+function newProduct() {
+    emit('new')
 }
 </script>
 
@@ -82,6 +87,14 @@ function clear() {
                 @click="clear"
             >
                 Clear Search
+            </VBtn>
+            <VBtn
+                color="grey"
+                size="small"
+                class="mx-2 bg-secondary text-h6 justify-center align-center lightgrey elevation-0"
+                @click="newProduct"
+            >
+                Add Product
             </VBtn>
         </VCol>
         </VRow>
