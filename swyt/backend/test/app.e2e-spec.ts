@@ -27,4 +27,17 @@ describe('AppController (e2e)', () => {
       })
       .expect(201);
   });
+
+  it('/ (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/products')
+      .send({
+        name: '',
+        description: 'test',
+        price: 1,
+        category: 'FOOD',
+        image: 'test',
+      })
+      .expect(400);
+  });
 });
