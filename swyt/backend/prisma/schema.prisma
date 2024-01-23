@@ -10,8 +10,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Product {
+  id          Int      @id @default(autoincrement())
+  description String   @db.VarChar(255)
+  price       Float
+  image       String
+  category    Category
+}
+
+enum Category {
+  FOOD
+  DRINK
+  FURNITURE
+  ELECTRONICS
+  MOTORS
+  OTHER
 }
