@@ -60,14 +60,11 @@ services:
         container_name: postgres
 
         environment:
-
             PGPORT: ${PGPORT}
-
             POSTGRES_USER: ${POSTGRES_USER}
-
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-
             DB_DATABASE: ${DB_DATABASE}
+            DATABASE_URL: ${DATABASE_URL}
 
         ports:
             - "5432:5432"
