@@ -8,8 +8,7 @@ import {
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import type { Category } from './interfaces/product.d';
-import { PosNumberPipe } from 'src/pipes/posNumber.pipe';
-import { ParseStringPipe } from 'src/pipes/string.pipe';
+import { ParseStringPipe } from '../pipes/string.pipe';
 import { ProductDto } from './dto/product.dto';
 
 @Controller('products')

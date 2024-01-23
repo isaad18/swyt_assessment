@@ -15,7 +15,7 @@ import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { randomUUID } from 'crypto';
 import * as fs from 'fs';
-import { ParseStringPipe } from 'src/pipes/string.pipe';
+import { ParseStringPipe } from '../pipes/string.pipe';
 
 @Controller('/multer')
 export class MulterController {
