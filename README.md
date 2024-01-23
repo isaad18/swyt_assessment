@@ -3,6 +3,8 @@
 This is a simple website that runs on vuejs and nestjs in the backend, with postgres for the database.
 Everything is automated and containarized to be able to run on any machine with a simple command
 ```docker-compose up --build```
+after filling the .env with the variables mentioned in .env.example, please be aware when changing the variables, as for example when you change (POSTGRES_USER) value, make sure to change it inside the (DATABASE_URL) with its corresponding name as written in the values.
+provide the port with the value 5432, as the default port for postgres to ensure its running smoothly.
 
 ### Features
 On this website you can post a product and categorize it, you can search for other products either by name category.
