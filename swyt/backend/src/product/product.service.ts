@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import type { Category } from './interfaces/product.d';
+import { ProductDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductService {
@@ -41,6 +42,18 @@ export class ProductService {
       skip: skip,
       orderBy: {
         createdAt: orderBy,
+      },
+    });
+  }
+
+  async postProduct(product: ProductDto) {
+    return await this.prisma.product.create({
+      data: {
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        category: product.category,
+        image: product.image,
       },
     });
   }
