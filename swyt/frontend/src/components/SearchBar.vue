@@ -103,7 +103,7 @@ function clear() {
 }
 
 .black {
-  background-color: #000000;
+    background-color: #222222;
 }
 
 body, html {
