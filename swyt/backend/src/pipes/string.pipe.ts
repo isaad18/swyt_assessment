@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 
 @Injectable()
-export class QueryParseStringPipe implements PipeTransform<string, string> {
+export class ParseStringPipe implements PipeTransform<string, string> {
   transform(value: string): string {
     let flag: boolean = false;
     if (!value) return value;

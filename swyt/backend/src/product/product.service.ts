@@ -6,8 +6,15 @@ import type { Category } from './interfaces/product.d';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
-  getHello(): string {
-    return 'Hello World!';
+  isProductEnum(category: string): boolean {
+    return (
+      category === 'FOOD' ||
+      category === 'DRINK' ||
+      category === 'FURNITURE' ||
+      category === 'ELECTRONICS' ||
+      category === 'MOTORS' ||
+      category === 'OTHER'
+    );
   }
 
   async getProducts(
